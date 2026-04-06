@@ -12,16 +12,16 @@ android {
         applicationId   = "de.lobianco.saftssh.mosh"
         minSdk          = 26
         targetSdk       = 36
-        versionCode     = 11
-        versionName     = "1.0.11"
+        versionCode     = 12
+        versionName     = "1.0.12"
 
-        // Only arm64 — same constraint as main SaftSSH app
+        // Only arm64 atm
         ndk { abiFilters += listOf("arm64-v8a") }
     }
 
     buildTypes {
         release {
-            isMinifyEnabled = true   // nothing to obfuscate in a pure binary-delivery plugin
+            isMinifyEnabled = true
         }
     }
 
@@ -32,15 +32,12 @@ android {
 
     packaging {
         jniLibs {
-            // Extract libmosh-client.so to nativeLibraryDir at install time so it
-            // sits on an exec-mounted filesystem.  The main SaftSSH app reads the path
-            // via PackageManager.getApplicationInfo().nativeLibraryDir and execs it
-            // directly — no copy into noexec storage needed.
             useLegacyPackaging = true
         }
     }
 }
 
 dependencies {
-    implementation("androidx.core:core-ktx:1.15.0")
+    implementation("androidx.core:core-ktx:1.18.0")
+    implementation("androidx.browser:browser:1.10.0")
 }
